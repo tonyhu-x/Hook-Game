@@ -15,7 +15,7 @@ public class GrapplingScript : MonoBehaviour
     public float minDistanceMultiplierForJoint = 0.25f;
     public float JointSpring = 4.5f;
     public float JointDamper = 7f;
-    public float JointMassScale = 4.5f; 
+    public float JointMassScale = 4.5f;
     public float DeleteJointThreshold = 0.6f;
     float DistanceToPoint;
     bool DestroyJoint;
@@ -28,34 +28,39 @@ public class GrapplingScript : MonoBehaviour
     void Awake()
     {
         lr = GetComponent<LineRenderer>();
-
-        Debug.Log("I'm Dead!");
     }
 
 
     void Update()
     {
-        if (CanLeftClick){
+        if (CanLeftClick)
+        {
             LeftClick = Input.GetMouseButtonDown(0);
         }
-        if (CanRightClick){
+        if (CanRightClick)
+        {
             RightClick = Input.GetMouseButtonDown(1);
         }
-        if (pulling){
+        if (pulling)
+        {
             DistanceToPoint = Vector3.Distance(ObjectBeingPulled.transform.position, GrapplingTo);
         }
-        else{
+        else
+        {
             DistanceToPoint = Vector3.Distance(transform.position, GrapplingTo);
         }
         DestroyJoint = DistanceToPoint <= DeleteJointThreshold;
 
-        if (LeftClick){
+        if (LeftClick)
+        {
             GrappleToPoint();
         }
-        else if (RightClick){
+        else if (RightClick)
+        {
             PullObject();
         }
-        if (DestroyJoint){
+        if (DestroyJoint)
+        {
             Destroy(joint);
             lr.positionCount = 0;
             CanLeftClick = true;
@@ -65,15 +70,18 @@ public class GrapplingScript : MonoBehaviour
         }
     }
 
-    void LateUpdate(){
+    void LateUpdate()
+    {
         DrawRope();
     }
 
 
-    void GrappleToPoint(){
+    void GrappleToPoint()
+    {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit, maxDistance: Mathf.Infinity, layerMask: 1<<8)){
+        if (Physics.Raycast(ray, out hit, maxDistance: Mathf.Infinity, layerMask: 1 << 8))
+        {
             GrapplingTo = hit.transform.position;
             joint = transform.gameObject.AddComponent<SpringJoint>();
             joint.autoConfigureConnectedAnchor = false;
@@ -90,10 +98,12 @@ public class GrapplingScript : MonoBehaviour
         }
     }
 
-    void PullObject(){
+    void PullObject()
+    {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit, maxDistance: Mathf.Infinity, layerMask: 1<<8)){
+        if (Physics.Raycast(ray, out hit, maxDistance: Mathf.Infinity, layerMask: 1 << 8))
+        {
             pulling = true;
             ObjectBeingPulled = hit.transform.gameObject;
             GrapplingTo = transform.position;
@@ -113,20 +123,24 @@ public class GrapplingScript : MonoBehaviour
         }
     }
 
-    void DrawRope(){
+    void DrawRope()
+    {
 
         if (!joint) return;
         lr.positionCount = 2;
-        if (pulling) {
+        if (pulling)
+        {
             lr.SetPosition(0, transform.position);
             lr.SetPosition(1, ObjectBeingPulled.transform.position);
-        } 
-        else {
+        }
+        else
+        {
             lr.SetPosition(0, grapplePointOnPlayer.position);
             lr.SetPosition(1, GrapplingTo);
         }
     }
-    void DeleteRope(){
+    void DeleteRope()
+    {
         lr.positionCount = 0;
     }
 }
