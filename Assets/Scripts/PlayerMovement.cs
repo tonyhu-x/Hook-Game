@@ -39,7 +39,8 @@ public class PlayerMovement : MonoBehaviour
         SpaceDown = Input.GetKey(KeyCode.Space);
         ADown = Input.GetKey(KeyCode.A);
         DDown = Input.GetKey(KeyCode.D);
-    }
+   }
+
 
     void FixedUpdate()
     {
@@ -49,9 +50,16 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleKeyBoardMouseInputs()
     {
+        Event e = Event.current;
+        if (e.isKey)
+        {
+            Debug.Log(e.keyCode);
+        }
+ 
         jump = 0;
         WasGrounded = IsGrounded;
         IsGrounded = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), transform.localScale.y / 2.0f + 0.0001f);
+
         if (ADown)
         {
             if (zvel == 0 && IsGrounded)
