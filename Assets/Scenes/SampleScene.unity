@@ -172,7 +172,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 436274870}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: ae1d8dc0670ff364594fbe7d0e6b46db, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -253,7 +253,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 114
@@ -390,6 +390,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zDirection: 0
+  needToJump: 0
+  jumpBuffer: 0
+  isGrounded: 1
 --- !u!1 &554003540
 GameObject:
   m_ObjectHideFlags: 0
